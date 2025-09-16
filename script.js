@@ -2,18 +2,22 @@ const choices = ['rock', 'paper', 'scissors']
 
  function getComputerChoice() {
     return choices[Math.floor(Math.random() * 3)];
- }
+}
 
- function getHumanChoice() {
+function getHumanChoice() {
     return prompt('Rock, paper, or scissors?')
- }
-
+}
 
 let humanScore = 0
 let computerScore = 0
 
-const humanSelection = getHumanChoice()
-const computerSelection = getComputerChoice()
+function getWinner(human, computer) {
+    if (human === computer) {
+        return 'You tied!'
+    } else {
+       return human > computer ? 'Congratulations, You won!' : 'You lost, try again.'
+    }
+}
 
 /* paper beats rock
 rock beats scissors
@@ -21,11 +25,11 @@ scissors beats paper */
 
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase()
-   if (computerChoice === humanChoice){
-    console.log('It was a draw!')
-    console.log(`The score is: You: ${humanScore} | Computer: ${computerScore}`)
-   } else if (
-        (humanChoice === 'paper' && computerChoice === 'rocks') ||
+    if (computerChoice === humanChoice){
+        console.log('It was a draw!')
+        console.log(`The score is: You: ${humanScore} | Computer: ${computerScore}`)
+    } else if (
+        (humanChoice === 'paper' && computerChoice === 'rock') ||
         (humanChoice === 'rock' && computerChoice === 'scissors') ||
         (humanChoice === 'scissors' && computerChoice === 'paper')
     ) {
@@ -39,4 +43,14 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-playRound(humanSelection, computerSelection)
+ function playGame() {
+    for (let i=0; i < 5; i++) {
+        const humanSelection = getHumanChoice()
+        const computerSelection = getComputerChoice()
+        console.log('computer: ', computerSelection)
+        playRound(humanSelection, computerSelection)
+    }
+}
+
+playGame();
+console.log(getWinner(humanScore, computerScore))
